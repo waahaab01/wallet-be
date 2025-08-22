@@ -177,6 +177,9 @@ exports.sendResetOTP = async (req, res) => {
       return res.status(400).json({ message: "Invalid or missing email address" });
     }
     const user = await User.findOne({ email });
+    if (!user.mnemonic) {
+  return res.status(400).json({ message: "User record is missing mnemonic" });
+}
     if (!user) return res.status(400).json({ message: "Email not found" });
     const otp = generateOTP();
     user.otp = otp;

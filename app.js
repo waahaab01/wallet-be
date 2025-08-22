@@ -15,10 +15,12 @@ dotenv.config();
 require('./utils/listener');
 
 const app = express();
+const path = require('path');
 
 // Middleware
 app.use(cors());
 app.use(express.json()); // Parse JSON body
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 
 // Test route
